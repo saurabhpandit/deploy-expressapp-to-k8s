@@ -34,14 +34,7 @@ npm test
 Installs dependency modules and runs test
 
 ### Build & Publish stage
-```
-echo "$DOCKER_PASS" | docker login -u "$DOCKER_USERNAME" --password-stdin
-docker build -t $DOCKER_USERNAME/deploy-expressapp-to-k8s:$TRAVIS_BUILD_NUMBER --build-arg SHA=$(git rev-parse --short HEAD) .
-docker images
-docker tag $DOCKER_USERNAME/deploy-expressapp-to-k8s:$TRAVIS_BUILD_NUMBER $DOCKER_USERNAME/deploy-expressapp-to-k8s:latest
-docker push $DOCKER_USERNAME/deploy-expressapp-to-k8s:$TRAVIS_BUILD_NUMBER
-docker push $DOCKER_USERNAME/deploy-expressapp-to-k8s:latest
-```
+Build and publish stage is handled by deploy section which runs docker_push.sh script. Script, depending on whether build is triggered by tag or push to master branch, decides the docker image tag that will be pushed to docker hub.
 
 To set DOCKER_USERNAME & DOCKER_PASS in travis environment variables, use https://hub.docker.com/r/skandyla/travis-cli/ docker image or install travis gem locally.
 
@@ -59,6 +52,11 @@ https://hub.docker.com/r/saurabhcpandit/deploy-expressapp-to-k8s/tags
 To run recently published docker image
 ```
 docker run -p 8080:8080 -t -i saurabhcpandit/deploy-expressapp-to-k8s:latest
+```
+
+To run specific version 
+```
+docker run -p 8080:8080 -t -i saurabhcpandit/deploy-expressapp-to-k8s:<version tag>
 ```
 
 ## Build & Run docker image locally
