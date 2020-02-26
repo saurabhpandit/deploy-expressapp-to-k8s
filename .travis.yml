@@ -10,10 +10,6 @@ jobs:
     script:
     - npm test
   - stage: build and publish docker image
-    script:
-    - echo "$DOCKER_PASS" | docker login -u "$DOCKER_USERNAME" --password-stdin
-    - docker build -t $DOCKER_USERNAME/deploy-expressapp-to-k8s:$TRAVIS_BUILD_NUMBER
-      --build-arg SHA=$(git rev-parse --short HEAD) .
     deploy:
     - provider: script
       script: "./bin/docker_push.sh"

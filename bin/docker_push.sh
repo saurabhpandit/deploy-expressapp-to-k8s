@@ -2,6 +2,7 @@
 
 echo "$DOCKER_PASS" | docker login -u "$DOCKER_USERNAME" --password-stdin
 
+docker build -t $DOCKER_USERNAME/deploy-expressapp-to-k8s:$TRAVIS_BUILD_NUMBER --build-arg SHA=$(git rev-parse --short HEAD) .
 docker images
 
 if [[ -z "$TRAVIS_TAG" ]]; then
