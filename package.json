@@ -1,0 +1,34 @@
+{
+  "name": "deploy-expressapp-to-k8s",
+  "version": "1.0.0",
+  "description": "Sample expressjs app to demonstrate CI pipeline and deployment to kubernetes",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "SHA=$(git rev-parse --short HEAD) node src/app.js",
+    "test": "mocha src/tests --exit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/saurabhpandit/deploy-expressapp-to-k8s.git"
+  },
+  "keywords": [
+    "kubernetes",
+    "docker",
+    "travis"
+  ],
+  "author": "Saurabh Pandit",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/saurabhpandit/deploy-expressapp-to-k8s/issues"
+  },
+  "homepage": "https://github.com/saurabhpandit/deploy-expressapp-to-k8s#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "helmet": "^3.21.3"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^7.0.1",
+    "supertest": "^4.0.2"
+  }
+}
