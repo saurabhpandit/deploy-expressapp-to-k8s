@@ -15,13 +15,14 @@ jobs:
     - docker build -t $DOCKER_USERNAME/deploy-expressapp-to-k8s:$TRAVIS_BUILD_NUMBER
       --build-arg SHA=$(git rev-parse --short HEAD) .
     deploy:
-      skip_cleanup: true
     - provider: script
       script: "./bin/docker_push.sh"
+      skip_cleanup: true
       on:
         branch: master
     - provider: script
       script: "./bin/docker_push.sh"
+      skip_cleanup: true
       on:
         tags: true
 env:
