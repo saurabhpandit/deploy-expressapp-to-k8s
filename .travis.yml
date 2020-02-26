@@ -1,0 +1,23 @@
+language: node_js
+node_js:
+- 10
+services:
+- docker
+jobs:
+  include:
+  - stage: test
+    install: npm install
+    script:
+    - npm test
+  - stage: build and publish docker image
+    script:
+    - echo "$DOCKER_PASS" | docker login -u "$DOCKER_USERNAME" --password-stdin
+    - docker build -t $DOCKER_USERNAME/deploy-expressapp-to-k8s:$TRAVIS_BUILD_NUMBER
+      --build-arg SHA=$(git rev-parse --short HEAD) .
+    - docker images
+    - docker tag $DOCKER_USERNAME/deploy-expressapp-to-k8s:$TRAVIS_BUILD_NUMBER $DOCKER_USERNAME/deploy-expressapp-to-k8s:latest
+    - docker push $DOCKER_USERNAME/deploy-expressapp-to-k8s:$TRAVIS_BUILD_NUMBER
+    - docker push $DOCKER_USERNAME/deploy-expressapp-to-k8s:latest
+env:
+  global:
+  - secure: CoWXhJW2f1m5KXDYbYzUHgl2PcHZLUrhxW9jJYPsqjM6rhZxvdhkfr/+P8J3xU9pQ5inQ5umRpUpqkwlxE93ImzmUQUAKdQLm6SLSO31LPrVJTGWhTpCA9PSsSjNZrA9cr5Ezfhps2TZXHausXGOJnA+lJTg1OIhZWwvgPDHi40kUJMxXmuRHtAtLe2RemnprCEQapefJf6XvGpMQdtNpmW4fo2ynfaUH4mMsREeMyZuCSoTf6Z6v8zBDnTdaKPdz7yK71XzKiFcl3LvFPdTA6hRWa2W/mpRvWwjK4OgqiPtVhB/ZB8WzjuX8XkBfEP9izsqVVV4lgu9pWNrC3Ru5aRlxQulSaeqpZeD7NWRi/rR00slDsV44MB8bFxkpdLTiMYcY6CEOEWWcXAPbiRJL8faaFRtZwi75dbsjsMquMmUmsjXF+JQKqrkmP5q0zatHC04Ss+fpils1c7yPu3gYuVHSPy1TzUlfHGFa5v9KhQImLPni0Wher2buRFZdzHnYoxEkvBXPIX5S7etDseb++3YRnCr/yMzjCElkBOpV/SaEytwyEtKypgrbbBYYvwAfcc0Xhh2h8kEiD1Tl84lk8s7HTOK969IOKPTOKVrYizRbtOhLitjOJotdyZk9nm93A1z9TFTfQn3262OAjOfh1D03lctzySDVNgNpwGQGiQ=
