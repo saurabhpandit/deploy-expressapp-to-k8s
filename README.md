@@ -20,8 +20,10 @@ API | Response
 
 ```npm run start``` to start development server
 
-## Travis-CI
-This repository has been configured with Travis CI to build docker images and publish them to docker hub when new code is committed and pushed
+## Travis-CI & versioning
+* This repository has been configured with Travis CI to build docker images and publish them to docker hub when new code is committed and pushed
+* docker images are pushed when code is merged to master branch (latest tag for docker)
+* docker images are pushed when a tag is pushed (pushed tag for docker)
 
 Travis undergoes following stages
 ### Test stage
