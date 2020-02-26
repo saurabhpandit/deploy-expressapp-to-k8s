@@ -4,6 +4,7 @@
   "description": "Sample expressjs app to demonstrate CI pipeline and deployment to kubernetes",
   "main": "src/app.js",
   "scripts": {
+    "start": "SHA=$(git rev-parse --short HEAD) node src/app.js",
     "test": "mocha src/tests --exit"
   },
   "repository": {
