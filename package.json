@@ -1,6 +1,6 @@
 {
   "name": "deploy-expressapp-to-k8s",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Sample expressjs app to demonstrate CI pipeline and deployment to kubernetes",
   "main": "src/app.js",
   "scripts": {

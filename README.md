@@ -22,8 +22,8 @@ API | Response
 
 ## Travis-CI & versioning
 * This repository has been configured with Travis CI to build docker images and publish them to docker hub when new code is committed and pushed
-* docker images are pushed when code is merged to master branch (latest tag for docker)
-* docker images are pushed when a tag is pushed (pushed tag for docker)
+* docker images are built and pushed when code is merged to master branch (latest tag for docker)
+* docker images are built and pushed when a tag is pushed (pushed tag for docker)
 
 Travis undergoes following stages
 ### Test stage
@@ -85,6 +85,6 @@ Currently following script will deploy saurabhcpandit/deploy-expressapp-to-k8s:l
 2. Logging has not been implemented 
 3. Use of process managers has not been considered
 4. API is exposed over HTTP instead of HTTPS
-5. TravisCI is configured to build all branches
-6. Recursive copy in Dockerfile which could be avoided
-7. Assumes that deployment will occur on Docker for Desktop (Windows).
+5. Recursive copy in Dockerfile which could be avoided
+6. Assumes that deployment will occur on Docker for Desktop (Windows).
+7. TravisCI builds are triggered for all branches.
