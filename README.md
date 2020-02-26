@@ -70,6 +70,16 @@ To run docker image
 docker run -p 8080:8080 -t -i deploy-expressapp-to-k8s
 ```
 
+## Deploy to kubernetes on Docker for Desktop (Windows)
+Following script will create technical-test namespace if it doesn't exist and apply service and deployment manifests.
+
+Currently following script will deploy saurabhcpandit/deploy-expressapp-to-k8s:latest. If you wish to deploy a different version, update the image tag in deploy\nodeapi-deployment.yaml manifest and re-run.
+
+```
+# Assuming pwd is root directory of the repository
+.\deploy\deploy-to-k8s.ps1
+```
+
 # Limitations & Risks
 1. Authentication mechanism has not been implemented
 2. Logging has not been implemented 
@@ -77,3 +87,4 @@ docker run -p 8080:8080 -t -i deploy-expressapp-to-k8s
 4. API is exposed over HTTP instead of HTTPS
 5. TravisCI is configured to build all branches
 6. Recursive copy in Dockerfile which could be avoided
+7. Assumes that deployment will occur on Docker for Desktop (Windows).

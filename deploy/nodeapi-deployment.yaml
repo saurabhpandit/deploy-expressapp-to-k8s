@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nodeapi-deployment
+  namespace: technical-test
+  labels:
+    app: nodeapi
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nodeapi
+  template:
+    metadata:
+      labels:
+        app: nodeapi
+    spec:
+      containers:
+      - name: deploy-expressapp-to-k8s
+        image: saurabhcpandit/deploy-expressapp-to-k8s:latest
+        ports:
+        - containerPort: 8080
