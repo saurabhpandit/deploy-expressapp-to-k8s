@@ -12,12 +12,12 @@ jobs:
   - stage: build and publish docker image
     deploy:
     - provider: script
-      script: ./bin/docker_push.sh
+      script: bash ./bin/docker_push.sh
       skip_cleanup: true
       on:
         branch: master
     - provider: script
-      script: ./bin/docker_push.sh
+      script: bash ./bin/docker_push.sh
       skip_cleanup: true
       on:
         tags: true
