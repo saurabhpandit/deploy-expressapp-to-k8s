@@ -80,6 +80,11 @@ Currently following script will deploy saurabhcpandit/deploy-expressapp-to-k8s:l
 .\deploy\deploy-to-k8s.ps1
 ```
 
+To access deployed app
+```
+http://localhost/version
+```
+
 # Limitations & Risks
 1. Authentication mechanism has not been implemented
 2. Logging has not been implemented 
