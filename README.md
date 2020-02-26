@@ -1,2 +1,79 @@
 # deploy-expressapp-to-k8s
+## Summary
 This repository demostrates CI pipeline for NodeJS app and its deployment to kubernetes
+
+* This app is written in NodeJS
+* Developed using expressjs framework
+* Travis-ci is used for creating a CI pipeline that gets triggered on each push & tag
+* This application is intended to run as docker container
+
+This NodeJS app has following API
+
+API | Response
+-----|--------
+/version | {"deploy-expressapp-to-k8s":[{"version":"1.0.0","description":"Sample expressjs app to demonstrate CI pipeline and deployment to kubernetes","lastcommitsha":"7fb7302"}]}
+
+## Build, Test and Run on development environment
+```npm install``` to install modules
+
+```npm test``` to run tests
+
+```npm run start``` to start development server
+
+## Travis-CI
+This repository has been configured with Travis CI to build docker images and publish them to docker hub when new code is committed and pushed
+
+Travis undergoes following stages
+### Test stage
+```
+npm install
+npm test
+```
+Installs dependency modules and runs test
+
+### Build & Publish stage
+```
+echo "$DOCKER_PASS" | docker login -u "$DOCKER_USERNAME" --password-stdin
+docker build -t $DOCKER_USERNAME/deploy-expressapp-to-k8s:$TRAVIS_BUILD_NUMBER --build-arg SHA=$(git rev-parse --short HEAD) .
+docker images
+docker tag $DOCKER_USERNAME/deploy-expressapp-to-k8s:$TRAVIS_BUILD_NUMBER $DOCKER_USERNAME/deploy-expressapp-to-k8s:latest
+docker push $DOCKER_USERNAME/deploy-expressapp-to-k8s:$TRAVIS_BUILD_NUMBER
+docker push $DOCKER_USERNAME/deploy-expressapp-to-k8s:latest
+```
+
+To set DOCKER_USERNAME & DOCKER_PASS in travis environment variables, use https://hub.docker.com/r/skandyla/travis-cli/ docker image or install travis gem locally.
+
+To lint .travis.yml
+```
+docker run -v $(pwd):/project --rm skandyla/travis-cli lint .travis.yml
+```
+
+Travis builds can be located here
+https://travis-ci.org/saurabhpandit/deploy-expressapp-to-k8s
+
+Published docker images can be located here
+https://hub.docker.com/r/saurabhcpandit/deploy-expressapp-to-k8s/tags
+
+To run recently published docker image
+```
+docker run -p 8080:8080 -t -i saurabhcpandit/deploy-expressapp-to-k8s:latest
+```
+
+## Build & Run docker image locally
+To build docker image
+```
+docker build -t deploy-expressapp-to-k8s --build-arg SHA=$(git rev-parse --short HEAD) .
+```
+
+To run docker image
+```
+docker run -p 8080:8080 -t -i deploy-expressapp-to-k8s
+```
+
+# Limitations & Risks
+1. Authentication mechanism has not been implemented
+2. Logging has not been implemented 
+3. Use of process managers has not been considered
+4. API is exposed over HTTP instead of HTTPS
+5. TravisCI is configured to build all branches
+
