@@ -76,4 +76,4 @@ docker run -p 8080:8080 -t -i deploy-expressapp-to-k8s
 3. Use of process managers has not been considered
 4. API is exposed over HTTP instead of HTTPS
 5. TravisCI is configured to build all branches
-
+6. Recursive copy in Dockerfile which could be avoided
