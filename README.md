@@ -93,3 +93,4 @@ http://localhost/version
 5. Recursive copy in Dockerfile which could be avoided
 6. Assumes that deployment will occur on Docker for Desktop (Windows).
 7. TravisCI builds are triggered for all branches.
+8. Horizontal Pod Autoscaler should be used to scale the number of pods in deployment when high CPI utilisation is observed.
